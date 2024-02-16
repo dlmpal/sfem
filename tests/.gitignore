@@ -1,0 +1,11 @@
+heat_transfer/
+shell/
+
+elasticity/build/*
+!elasticity/build/CMakeLists.txt
+elasticity/fields
+
+laplace/build/*
+laplace/fields
+elasticity/Beam.msh2
+!elasticity/build/CMakeLists.txt

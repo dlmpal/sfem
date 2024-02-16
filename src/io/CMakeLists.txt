@@ -1,0 +1,5 @@
+target_sources(sfem PRIVATE
+${CMAKE_CURRENT_SOURCE_DIR}/mesh.cc
+${CMAKE_CURRENT_SOURCE_DIR}/gmsh.cc
+${CMAKE_CURRENT_SOURCE_DIR}/vtk.cc
+${CMAKE_CURRENT_SOURCE_DIR}/field.cc)

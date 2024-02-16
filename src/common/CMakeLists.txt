@@ -1,0 +1,4 @@
+target_sources(sfem PRIVATE
+${CMAKE_CURRENT_SOURCE_DIR}/logger.cc
+${CMAKE_CURRENT_SOURCE_DIR}/error.cc
+${CMAKE_CURRENT_SOURCE_DIR}/init.cc)
