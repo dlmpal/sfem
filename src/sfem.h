@@ -1,7 +1,7 @@
 #ifndef __SFEM__
 #define __SFEM__
 
-// Top-level include file for sfem
+// Top-level include file for SFEM
 
 #include "common/sfem_common.h"
 
