@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv)
 {
-    sfem::Initialize("GMSH_TO_SFEM", nullptr, nullptr);
+    sfem::Initialize(nullptr, nullptr, "GMSH_TO_SFEM");
     std::string gmsh_path = argv[1];
     std::string mesh_path = argv[2];
     auto mesh = sfem::io::ReadGmsh(gmsh_path);

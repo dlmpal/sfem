@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv)
 {
-    sfem::Initialize("SFEM_TO_VTK", nullptr, nullptr);
+    sfem::Initialize(nullptr, nullptr, "SFEM_TO_VTK");
     std::string mesh_path = argv[1];
     auto mesh = sfem::io::ReadMesh(mesh_path);
     int time_steps = std::atoi(argv[2]);

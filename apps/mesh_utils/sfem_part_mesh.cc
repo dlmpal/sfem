@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-    sfem::Initialize("SFEM_MESH_PART", &argc, &argv);
+    sfem::Initialize(&argc, &argv, "SFEM_MESH_PART");
     std::string mesh_path = argv[1];
     int n_parts = std::atoi(argv[2]);
     std::string partitioner_type(argv[3]);

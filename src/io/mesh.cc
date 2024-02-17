@@ -7,8 +7,8 @@ namespace sfem::io
     std::tuple<int, int, std::pair<std::vector<int>, std::vector<int>>, std::pair<std::unordered_map<int, int>, std::unordered_map<int, int>>>
     ReadNodePartition(const std::string &path)
     {
-        int n_procs = Logger::GetInstance().n_procs;
-        int proc_rank = Logger::GetInstance().proc_rank;
+        int n_procs = Logger::GetInstance().GetNumProcs();
+        int proc_rank = Logger::GetInstance().GetProcRank();
 
         std::ifstream file(path + "/NodePartition");
         if (!file.is_open())
@@ -21,7 +21,7 @@ namespace sfem::io
         file >> n_parts;
         if (n_parts != n_procs)
         {
-            error::InvalidSizeError(n_parts, Logger::GetInstance().n_procs, __FILE__, __LINE__);
+            error::InvalidSizeError(n_parts, Logger::GetInstance().GetNumProcs(), __FILE__, __LINE__);
         }
 
         // Read the number of owned+ghost nodes per process
@@ -75,8 +75,8 @@ namespace sfem::io
     //=============================================================================
     std::tuple<int, int, std::vector<int>> ReadCellPartition(const std::string &path)
     {
-        int n_procs = Logger::GetInstance().n_procs;
-        int proc_rank = Logger::GetInstance().proc_rank;
+        int n_procs = Logger::GetInstance().GetNumProcs();
+        int proc_rank = Logger::GetInstance().GetProcRank();
 
         std::ifstream file(path + "/CellPartition");
         if (!file.is_open())
@@ -89,7 +89,7 @@ namespace sfem::io
         file >> n_parts;
         if (n_parts != n_procs)
         {
-            error::InvalidSizeError(n_parts, Logger::GetInstance().n_procs, __FILE__, __LINE__);
+            error::InvalidSizeError(n_parts, Logger::GetInstance().GetNumProcs(), __FILE__, __LINE__);
         }
 
         // Read the number of cells per process
@@ -129,7 +129,7 @@ namespace sfem::io
     //=============================================================================
     std::tuple<int, std::vector<Float>> ReadNodes(const std::string &path, const std::unordered_map<int, int> &global_to_local = {})
     {
-        int n_procs = Logger::GetInstance().n_procs;
+        int n_procs = Logger::GetInstance().GetNumProcs();
 
         std::ifstream file(path + "/Nodes");
         if (!file.is_open())
@@ -177,7 +177,7 @@ namespace sfem::io
     std::tuple<int, std::vector<mesh::Cell>, std::vector<int>>
     ReadCells(const std::string &path, int _size_cell_node_conn = 0, const std::vector<int> cell_local_to_global = {}, const std::unordered_map<int, int> &node_global_to_local = {})
     {
-        int n_procs = Logger::GetInstance().n_procs;
+        int n_procs = Logger::GetInstance().GetNumProcs();
 
         std::ifstream file(path + "/Cells");
         if (!file.is_open())
@@ -278,7 +278,7 @@ namespace sfem::io
     //=============================================================================
     mesh::Mesh ReadMesh(const std::string &path)
     {
-        if (Logger::GetInstance().n_procs == 1)
+        if (Logger::GetInstance().GetNumProcs() == 1)
         {
             auto [n_nodes, xpts] = ReadNodes(path);
             auto [n_cells, cells, cell_node_conn] = ReadCells(path);

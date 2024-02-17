@@ -8,7 +8,7 @@ extern void LaplaceSolver(int dim);
 
 int main(int argc, char **argv)
 {
-    Initialize("LAPLACE_SOLVER", &argc, &argv);
+    Initialize(&argc, &argv, "LAPLACE_SOLVER", "log");
     int dim = std::atoi(argv[1]);
     LaplaceSolver(dim);
     Finalize();
@@ -30,5 +30,5 @@ void LaplaceSolver(int dim)
 
     solver::StaticSolver solver(&assembler);
     solver.Run();
-    io::WriteVTK("fields/sfem_" + std::to_string(::Logger::GetInstance().proc_rank) + ".vtk", mesh, {phi});
+    io::WriteVTK("fields/sfem_" + std::to_string(::Logger::GetInstance().GetProcRank()) + ".vtk", mesh, {phi});
 }

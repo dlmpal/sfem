@@ -51,12 +51,12 @@ namespace sfem::io
         else
         {
             values = field.GetValues();
-            if (Logger::GetInstance().n_procs > 1)
+            if (Logger::GetInstance().GetNumProcs() > 1)
             {
-                _path += std::to_string(Logger::GetInstance().proc_rank);
+                _path += std::to_string(Logger::GetInstance().GetProcRank());
             }
         }
-        if (Logger::GetInstance().proc_rank == SFEM_ROOT || assemble_global == false)
+        if (Logger::GetInstance().GetProcRank() == SFEM_ROOT || assemble_global == false)
         {
             std::ofstream file(_path);
             if (!file.is_open())

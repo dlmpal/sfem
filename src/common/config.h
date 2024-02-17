@@ -33,10 +33,10 @@
 #ifdef SFEM_USE_MPI
 #include "mpi.h"
 
-// Global MPI communicator/
+// Global MPI communicator
 #define SFEM_COMM_WORLD MPI_COMM_WORLD
 
-// Float datatype used for MPI operations/
+// Float datatype used for MPI operations
 #define SFEM_MPI_FLOAT MPI_DOUBLE
 #endif // FEMXX_USE_MPI
 

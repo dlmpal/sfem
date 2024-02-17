@@ -88,7 +88,7 @@ namespace sfem::mesh
         message += "*Regions: \n";
         for (auto region : regions)
             message += "\t|-" + region.name + "\n";
-        Logger::GetInstance().LogMessage(message, Logger::INFO);
+        Logger::GetInstance().Info(message);
     }
     //=============================================================================
     int Mesh::GetDim() const

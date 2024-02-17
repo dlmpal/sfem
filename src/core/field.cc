@@ -147,8 +147,8 @@ namespace sfem::field
     //=============================================================================
     std::vector<Float> AssembleGlobalValues(const Field &field)
     {
-        int n_procs = Logger::GetInstance().n_procs;
-        int proc_rank = Logger::GetInstance().proc_rank;
+        int n_procs = Logger::GetInstance().GetNumProcs();
+        int proc_rank = Logger::GetInstance().GetProcRank();
 
         // If serial, return early
         if (n_procs == 1)
@@ -178,7 +178,7 @@ namespace sfem::field
 
             // Assemble the owned dof in one big vector
             std::vector<int> all_dof;
-            if (Logger::GetInstance().proc_rank == SFEM_ROOT)
+            if (Logger::GetInstance().GetProcRank() == SFEM_ROOT)
             {
                 all_dof.resize(field.GetNumGlobalDof());
             }
