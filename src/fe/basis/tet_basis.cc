@@ -9,7 +9,7 @@ namespace sfem::fe::basis
         n_nodes = 4;
         n_qpts = 1;
 
-        /* Corner vertices */
+        // Corner vertices
         xi[0][0] = 0.0;
         xi[0][1] = 0.0;
         xi[0][2] = 0.0;
@@ -26,12 +26,12 @@ namespace sfem::fe::basis
         xi[3][1] = 0.0;
         xi[3][2] = 0.1;
 
-        /* Quadrature point */
+        // Quadrature point
         qpts[0][0] = 0.25;
         qpts[0][1] = 0.25;
         qpts[0][2] = 0.25;
 
-        /* Quadrature weight */
+        // Quadrature weight
         qwts[0] = 0.166666667;
     }
     //=============================================================================
@@ -71,7 +71,7 @@ namespace sfem::fe::basis
         n_nodes = 10;
         n_qpts = 5;
 
-        /* Corner vertices */
+        // Corner vertices
         xi[0][0] = 0.0;
         xi[0][1] = 0.0;
         xi[0][2] = 0.0;
@@ -88,7 +88,7 @@ namespace sfem::fe::basis
         xi[3][1] = 0.0;
         xi[3][2] = 0.1;
 
-        /* Mid-side vertices */
+        // Mid-side vertices
         xi[4][0] = 0.5;
         xi[4][1] = 0.0;
         xi[4][2] = 0.0;
@@ -113,7 +113,7 @@ namespace sfem::fe::basis
         xi[9][1] = 0.0;
         xi[9][2] = 0.5;
 
-        /* Quadrature points */
+        // Quadrature points
         qpts[0][0] = 0.25;
         qpts[0][1] = 0.25;
         qpts[0][2] = 0.25;
@@ -134,7 +134,7 @@ namespace sfem::fe::basis
         qpts[4][1] = 1.0 / 6.0;
         qpts[4][2] = 0.5;
 
-        /* Quadrature Weights */
+        // Quadrature Weights
         qwts[0] = -2.0 / 15.0;
         qwts[1] = 3.0 / 40.0;
         qwts[2] = 3.0 / 40.0;
@@ -153,13 +153,13 @@ namespace sfem::fe::basis
         Float l2 = pt[1];
         Float l3 = pt[2];
 
-        /* Corner vertices */
+        // Corner vertices
         N[0] = l0 * (2 * l0 - 1);
         N[1] = l1 * (2 * l1 - 1);
         N[2] = l2 * (2 * l2 - 1);
         N[3] = l3 * (2 * l3 - 1);
 
-        /* Mid-side vertices */
+        // Mid-side vertices
         N[4] = 4 * l1 * l0;
         N[5] = 4 * l1 * l2;
         N[6] = 4 * l2 * l0;
@@ -167,7 +167,7 @@ namespace sfem::fe::basis
         N[8] = 4 * l2 * l3;
         N[9] = 4 * l1 * l3;
 
-        /* Corner vertices */
+        // Corner vertices
         dNdxi[0][0] = 4 * pt[0] + 4 * pt[1] + 4 * pt[2] - 3;
         dNdxi[0][1] = 4 * pt[0] + 4 * pt[1] + 4 * pt[2] - 3;
         dNdxi[0][2] = 4 * pt[0] + 4 * pt[1] + 4 * pt[2] - 3;
@@ -184,7 +184,7 @@ namespace sfem::fe::basis
         dNdxi[3][1] = 0;
         dNdxi[3][2] = 4 * pt[2] - 1;
 
-        /* Mid-side vertices */
+        // Mid-side vertices
         dNdxi[4][0] = -4 * (2 * pt[0] + pt[1] + pt[2] - 1);
         dNdxi[4][1] = -4 * pt[0];
         dNdxi[4][2] = -4 * pt[0];

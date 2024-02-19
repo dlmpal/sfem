@@ -9,7 +9,7 @@ namespace sfem::fe::basis
         n_nodes = 3;
         n_qpts = 1;
 
-        /* Corner vertices */
+        // Corner vertices
         xi[0][0] = 0.0;
         xi[0][1] = 0.0;
 
@@ -19,11 +19,11 @@ namespace sfem::fe::basis
         xi[2][0] = 0.0;
         xi[2][1] = 1.0;
 
-        /* Quadrature point */
+        // Quadrature point
         qpts[0][0] = 1.0 / 3.0;
         qpts[0][1] = 1.0 / 3.0;
 
-        /* Quadrature weight */
+        // Quadrature weight
         qwts[0] = 1.0;
     }
     //=============================================================================
@@ -54,7 +54,7 @@ namespace sfem::fe::basis
         n_nodes = 6;
         n_qpts = 6;
 
-        /* Corner vertices */
+        // Corner vertices
         xi[0][0] = 0.0;
         xi[0][1] = 0.0;
 
@@ -64,7 +64,7 @@ namespace sfem::fe::basis
         xi[2][0] = 0.0;
         xi[2][1] = 1.0;
 
-        /* Mid-point vertices */
+        // Mid-point vertices
         xi[3][0] = 0.5;
         xi[3][1] = 0.0;
 
@@ -74,7 +74,7 @@ namespace sfem::fe::basis
         xi[5][0] = 0.0;
         xi[5][1] = 0.5;
 
-        /* Quadrature points */
+        // Quadrature points
         qpts[0][0] = 0.091576213509771;
         qpts[0][1] = 0.091576213509771;
 
@@ -93,7 +93,7 @@ namespace sfem::fe::basis
         qpts[5][0] = 0.108103018168070;
         qpts[5][1] = 0.445948490915965;
 
-        /* Quadrature weights */
+        // Quadrature weights
         qwts[0] = 0.054975871827661;
         qwts[1] = 0.054975871827661;
         qwts[2] = 0.054975871827661;
