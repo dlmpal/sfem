@@ -217,22 +217,25 @@ namespace sfem::mesh
     MeshPartitioner *CreateMeshPartitioner(const std::string &type, const mesh::Mesh *mesh, int n_parts)
     {
         MeshPartitioner *partitioner = nullptr;
+
         if (type == "METIS")
         {
-#ifdef FEMXX_USE_METIS
+#ifdef SFEM_USE_METIS
             partitioner = new METISPartitioner(mesh, n_parts);
 #else
-            Logger::GetInstance().Error("FEMXX was not compiled with METIS. Add FEMXX_USE_METIS=ON and re-compile the library.", __FILE__, __LINE__);
-#endif // FEMXX_USE_METIS
+            Logger::GetInstance().Error("FEMXX was not compiled with METIS. Add SFEM_USE_METIS=ON and re-compile the library.\n", __FILE__, __LINE__);
+#endif // SFEM_USE_METIS
         }
 
         if (partitioner == nullptr)
         {
             // ERROR
         }
+
+        return partitioner;
     }
     //=============================================================================
-#ifdef FEMXX_USE_METIS
+#ifdef SFEM_USE_METIS
     METISPartitioner::METISPartitioner(const Mesh *mesh, int n_parts) : MeshPartitioner(mesh, n_parts)
     {
     }
@@ -280,10 +283,10 @@ namespace sfem::mesh
         if (metis_return_val != 1)
         {
             std::string message = "METIS_PartMeshNodal() returned with:" + std::to_string(metis_return_val) + ", exiting\n";
-            Logger::GetInstance().LogMessage(message, Logger::ERROR);
+            Logger::GetInstance().Error(message, __FILE__, __LINE__);
         }
 
         return std::make_pair(cpart, npart);
     }
-#endif // FEMXX_USE_METIS
+#endif // SFEM_USE_METIS
 }
