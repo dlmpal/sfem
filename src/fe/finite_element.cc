@@ -8,8 +8,8 @@ namespace sfem::fe
     FiniteElement::FiniteElement(const mesh::Cell &cell, int dim, int n_vars, const std::array<Float, SFEM_MAX_CELL_NODES * 3> &xpts)
         : cell(cell), dim(dim), n_vars(n_vars), xpts(xpts)
     {
-        shape = geo::CreateShape(cell);
-        basis = basis::CreateBasis(cell);
+        shape = std::unique_ptr<geo::Shape>(geo::CreateShape(cell));
+        basis = std::unique_ptr<basis::Basis>(basis::CreateBasis(cell));
         n_nodes = basis->GetNumNodes();
         n_dof = n_nodes * n_vars;
 
@@ -63,12 +63,12 @@ namespace sfem::fe
     //=============================================================================
     const geo::Shape *FiniteElement::GetShape() const
     {
-        return shape;
+        return shape.get();
     }
     //=============================================================================
     const basis::Basis *FiniteElement::GetBasis() const
     {
-        return basis;
+        return basis.get();
     }
     //=============================================================================
     const std::array<Float, SFEM_MAX_CELL_NODES * 3> &FiniteElement::GetXpts() const
@@ -140,12 +140,12 @@ namespace sfem::fe
         return _J;
     }
     //=============================================================================
-    const std::array<Float, SFEM_MAX_CELL_NODES> FiniteElement::N() const
+    const std::array<Float, SFEM_MAX_CELL_NODES> &FiniteElement::N() const
     {
         return _N;
     }
     //=============================================================================
-    const std::array<std::array<Float, 3>, SFEM_MAX_CELL_NODES> FiniteElement::dNdX() const
+    const std::array<std::array<Float, 3>, SFEM_MAX_CELL_NODES> &FiniteElement::dNdX() const
     {
         return _dNdX;
     }

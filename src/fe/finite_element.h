@@ -59,10 +59,10 @@ namespace sfem::fe
         Float J() const;
 
         /// @brief Get the shape function values for the latest evaluation point
-        const std::array<Float, SFEM_MAX_CELL_NODES> N() const;
+        const std::array<Float, SFEM_MAX_CELL_NODES> &N() const;
 
         /// @brief Get the shape function gradient (w.r.t physical coords) for the latest evaluation point
-        const std::array<std::array<Float, 3>, SFEM_MAX_CELL_NODES> dNdX() const;
+        const std::array<std::array<Float, 3>, SFEM_MAX_CELL_NODES> &dNdX() const;
 
         /* Evaluate the field gradient @ pt, given the field values at the nodes */
         // void
@@ -97,10 +97,10 @@ namespace sfem::fe
         mesh::Cell cell;
 
         /// @brief Underlying geometrical Shape
-        geo::Shape *shape;
+        std::unique_ptr<geo::Shape> shape;
 
         /// @brief Finite Element basis
-        basis::Basis *basis;
+        std::unique_ptr<basis::Basis> basis;
 
         /// @brief Jacobian determinant (Natural to Physical)
         Float _J;
