@@ -9,11 +9,12 @@ namespace sfem::kernel::basic
     class Diffusion : public Kernel
     {
     public:
-        Diffusion(Float D);
+        Diffusion(Float c);
+        KernelType GetType() const override;
         Float GetCoefficient() const;
 
     private:
-        void operator()(Float kloc[]) override;
+        void Evaluate(std::vector<Float> &kloc) override;
 
         /// @brief Diffusion coefficient
         Float c;

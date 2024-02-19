@@ -8,9 +8,10 @@ namespace sfem::kernel::elasticity
     {
     public:
         Gravity(Float rho, int direction);
+        KernelType GetType() const override;
 
     private:
-        void operator()(Float kloc[]) override;
+        void Evaluate(std::vector<Float> &kloc) override;
 
         /// @brief Gravitational acceleration
         Float g = 9.81;

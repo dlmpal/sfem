@@ -18,26 +18,24 @@ namespace sfem::kernel
             MASS = 3
         };
 
-        /// @brief Base constructor
-        Kernel(KernelType type);
-
         /// @brief Destructor
         ~Kernel();
 
         /// @brief
-        KernelType GetType() const;
+        virtual KernelType GetType() const = 0;
 
         /// @brief Get the size of the Kernel output
         int GetSize() const;
 
         /// @brief Integrate the Kernel
-        /// @param[in] fe The FiniteElement with which to integrate
-        /// @param[out] kloc Where to place kernel output
-        virtual void Integrate(fe::FiniteElement *fe, Float kloc[]);
+        /// @param fe The FiniteElement with which to integrate
+        /// @returns The integrated kernel output
+        virtual std::vector<Float> Integrate(fe::FiniteElement *fe);
 
     protected:
         /// @brief Evaluate the Kernel at the current integration point
-        virtual void operator()(Float kloc[]) = 0;
+        /// @param[out] kloc Kernel output
+        virtual void Evaluate(std::vector<Float> &kloc) = 0;
 
         /// @brief Type
         KernelType type;

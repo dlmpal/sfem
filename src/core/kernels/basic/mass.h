@@ -9,10 +9,11 @@ namespace sfem::kernel::basic
     {
     public:
         Mass(Float c);
+        KernelType GetType() const override;
         Float GetCoefficient() const;
 
     private:
-        void operator()(Float kloc[]) override;
+        void Evaluate(std::vector<Float> &kloc) override;
 
         /// @brief Mass matrix coefficient
         Float c;

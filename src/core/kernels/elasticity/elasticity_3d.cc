@@ -17,27 +17,27 @@ namespace sfem::kernel::elasticity
     void Elasticity3D::ShapeDerivMatrix(Float B[])
     {
         auto [n_rows, n_cols] = ShapeDerivMatrixSize();
-        auto dNdX = fe->dNdX();
+        const auto &dNdX = fe->dNdX();
         for (auto i = 0; i < fe->GetNumNodes(); i++)
         {
-            /* exx */
+            // exx
             B[0 * n_cols + i * 3 + 0] = dNdX[i][0];
 
-            /* eyy */
+            // eyy
             B[1 * n_cols + i * 3 + 1] = dNdX[i][1];
 
-            /* ezz */
+            // ezz
             B[2 * n_cols + i * 3 + 2] = dNdX[i][2];
 
-            /* exy */
+            // exy
             B[3 * n_cols + i * 3 + 0] = dNdX[i][1];
             B[3 * n_cols + i * 3 + 1] = dNdX[i][0];
 
-            /* eyz */
+            // eyz
             B[4 * n_cols + i * 3 + 1] = dNdX[i][2];
             B[4 * n_cols + i * 3 + 2] = dNdX[i][1];
 
-            /* exz */
+            // exz
             B[5 * n_cols + i * 3 + 0] = dNdX[i][2];
             B[5 * n_cols + i * 3 + 2] = dNdX[i][0];
         }

@@ -1,6 +1,7 @@
 #include "mono_field_assembler.h"
 #include "../common/mat_ops.h"
 #include "chrono"
+#include "../common/logger.h"
 
 namespace sfem::assembly
 {
@@ -90,34 +91,25 @@ namespace sfem::assembly
                 auto [_, xpts] = mesh->GetCellNodes(cell);
                 auto dof = field->GetCellDof(cell);
                 fe::FiniteElement fe(cell, mesh->GetDim(), field->GetNumVars(), xpts);
-                int n_dof = fe.GetNumDof();
+
                 for (auto kernel : kernel_map[region.name])
                 {
-                    Float kloc[n_dof * (n_dof + 1)] = {0};
-                    Float floc[n_dof] = {0};
-
-                    kernel->Integrate(&fe, kloc);
+                    auto kloc = kernel->Integrate(&fe);
 
                     switch (kernel->GetType())
                     {
                     case kernel::Kernel::KernelType::LHS:
-                        K->AddValues(n_dof, dof.data(), kloc);
+                        K->AddValues(fe.GetNumDof(), dof.data(), kloc.data());
                         break;
                     case kernel::Kernel::KernelType::MASS:
-                        M->AddValues(n_dof, dof.data(), kloc);
+                        if (type == AssemblyType::DYNAMIC)
+                            M->AddValues(fe.GetNumDof(), dof.data(), kloc.data());
                         break;
                     case kernel::Kernel::KernelType::RHS:
-                        F->AddValues(n_dof, dof.data(), kloc);
+                        F->AddValues(fe.GetNumDof(), dof.data(), kloc.data());
                         break;
                     case kernel::Kernel::KernelType::BOTH:
-                        for (auto i = 0; i < n_dof; i++)
-                        {
-                            floc[i] = kloc[n_dof * n_dof + i];
-                        }
-                        K->AddValues(n_dof, dof.data(), kloc);
-                        F->AddValues(n_dof, dof.data(), floc);
-                        break;
-                    default:
+                        K->AddValues(fe.GetNumDof(), dof.data(), kloc.data());
                         break;
                     }
                 }
@@ -131,7 +123,9 @@ namespace sfem::assembly
         U->Assemble();
         F->Assemble();
         if (type == AssemblyType::DYNAMIC)
+        {
             M->Assemble();
+        }
     };
     //=============================================================================
     void MonoFieldAssembler::UpdateFieldValues()

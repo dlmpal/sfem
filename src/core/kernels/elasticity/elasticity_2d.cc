@@ -17,16 +17,16 @@ namespace sfem::kernel::elasticity
     void Elasticity2D::ShapeDerivMatrix(Float B[])
     {
         auto [n_rows, n_cols] = ShapeDerivMatrixSize();
-        auto dNdX = fe->dNdX();
+        const auto &dNdX = fe->dNdX();
         for (auto i = 0; i < fe->GetNumNodes(); i++)
         {
-            /* exx */
+            // exx
             B[0 * n_cols + i * 2 + 0] = dNdX[i][0];
 
-            /* eyy */
+            // eyy
             B[1 * n_cols + i * 2 + 1] = dNdX[i][1];
 
-            /* exy */
+            // exy
             B[2 * n_cols + i * 2 + 0] = dNdX[i][1];
             B[2 * n_cols + i * 2 + 1] = dNdX[i][0];
         }
@@ -73,5 +73,4 @@ namespace sfem::kernel::elasticity
         D[7] = 0.0;
         D[8] = coeff * (1 - 2 * nu) * 0.5;
     }
-
 }

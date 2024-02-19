@@ -4,17 +4,22 @@
 namespace sfem::kernel::elasticity
 {
     //=============================================================================
-    Elasticity::Elasticity(Float E, Float nu) : Kernel(KernelType::LHS)
+    Elasticity::Elasticity(Float E, Float nu)
     {
         this->E = E;
         this->nu = nu;
+    }
+    //=============================================================================
+    Kernel::KernelType Elasticity::GetType() const
+    {
+        return KernelType::LHS;
     }
     //=============================================================================
     Elasticity::~Elasticity()
     {
     }
     //=============================================================================
-    void Elasticity::operator()(Float kloc[])
+    void Elasticity::Evaluate(std::vector<Float> &kloc)
     {
         auto [n_rows, n_cols] = ShapeDerivMatrixSize();
         Float D[n_rows * n_rows] = {0.0};
@@ -26,7 +31,6 @@ namespace sfem::kernel::elasticity
         mat_ops::mat_transpose(n_rows, n_cols, B, B_trans);
         Constitutive(D);
         mat_ops::mat_mult(n_rows, n_cols, n_rows, D, B, D_B);
-        mat_ops::mat_mult(n_cols, n_cols, n_rows, B_trans, D_B, kloc);
+        mat_ops::mat_mult(n_cols, n_cols, n_rows, B_trans, D_B, kloc.data());
     }
-
 }

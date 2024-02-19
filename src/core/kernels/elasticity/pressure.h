@@ -9,9 +9,10 @@ namespace sfem::kernel::elasticity
     {
     public:
         Pressure(field::Field *p);
+        KernelType GetType() const override;
 
     private:
-        void operator()(Float kloc[]);
+        void Evaluate(std::vector<Float> &kloc);
 
         /// @brief Pressure field
         field::Field *p;

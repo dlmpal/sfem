@@ -4,19 +4,7 @@
 namespace sfem::kernel
 {
     //=============================================================================
-    Kernel::Kernel(KernelType type)
-        : type(type)
-    {
-    }
-    //=============================================================================
-    Kernel::~Kernel(){
-
-    };
-    //=============================================================================
-    Kernel::KernelType Kernel::GetType() const
-    {
-        return type;
-    }
+    Kernel::~Kernel(){};
     //=============================================================================
     int Kernel::GetSize() const
     {
@@ -33,19 +21,22 @@ namespace sfem::kernel
         return size;
     }
     //=============================================================================
-    void Kernel::Integrate(fe::FiniteElement *fe, Float kloc[])
+    std::vector<Float> Kernel::Integrate(fe::FiniteElement *fe)
     {
         this->fe = fe;
         int size = GetSize();
         auto basis = fe->GetBasis();
+        std::vector<Float> kloc(size, 0.0);
+        std::vector<Float> _kloc(size, 0.0);
+
         for (auto npt = 0; npt < basis->GetNumQuadPts(); npt++)
         {
-            Float _kloc[size] = {0.0};
             fe->ComputeTransform(basis->GetQuadPt(npt));
-            this->operator()(_kloc);
-            mat_ops::mat_mult_scalar(size, fe->J() * basis->GetQuadWeight(npt), _kloc);
-            mat_ops::mat_add(size, true, _kloc, kloc, nullptr);
+            Evaluate(_kloc);
+            mat_ops::mat_mult_scalar(size, fe->J() * basis->GetQuadWeight(npt), _kloc.data());
+            mat_ops::mat_add(size, true, _kloc.data(), kloc.data(), nullptr);
         }
-    }
 
+        return kloc;
+    }
 }

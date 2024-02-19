@@ -3,9 +3,14 @@
 namespace sfem::kernel::basic
 {
     //=============================================================================
-    Source::Source(const Float c[]) : Kernel(KernelType::RHS)
+    Source::Source(const Float c[])
+        : c(c)
     {
-        this->c = c;
+    }
+    //=============================================================================
+    Kernel::KernelType Source::GetType() const
+    {
+        return KernelType::RHS;
     }
     //=============================================================================
     void Source::ComputeValues(Float values[])
@@ -13,11 +18,15 @@ namespace sfem::kernel::basic
         auto n_vars = fe->GetNumVars();
         auto n_nodes = fe->GetNumNodes();
         for (auto i = 0; i < n_nodes; i++)
+        {
             for (auto j = 0; j < n_vars; j++)
+            {
                 values[i * n_vars + j] = c[j];
+            }
+        }
     }
     //=============================================================================
-    void Source::operator()(Float kloc[])
+    void Source::Evaluate(std::vector<Float> &kloc)
     {
         auto n_vars = fe->GetNumVars();
         auto n_nodes = fe->GetNumNodes();
@@ -25,8 +34,13 @@ namespace sfem::kernel::basic
         Float values[n_dof];
         ComputeValues(values);
         auto N = fe->N();
+
         for (auto i = 0; i < n_nodes; i++)
+        {
             for (auto j = 0; j < n_vars; j++)
+            {
                 kloc[i * n_vars + j] = values[i * n_vars + j] * N[i];
+            }
+        }
     }
 }

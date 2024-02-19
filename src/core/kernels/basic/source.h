@@ -8,10 +8,11 @@ namespace sfem::kernel::basic
     {
     public:
         Source(const Float c[]);
+        KernelType GetType() const override;
 
     private:
         virtual void ComputeValues(Float values[]);
-        void operator()(Float kloc[]) override;
+        void Evaluate(std::vector<Float> &kloc) override;
 
         /// @brief Source value for every variable
         const Float *c;
