@@ -58,7 +58,7 @@ endif()
 endif()
 
 ## METIS
-set(SFEM_USE_METIS off)
+set(SFEM_USE_METIS on)
 if(SFEM_USE_METIS)
     set(METIS_DIR /home/user/local)
     list(APPEND SFEM_INCLUDE_DEPS ${METIS_DIR}/include)
