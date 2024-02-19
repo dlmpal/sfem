@@ -4,6 +4,7 @@ shell/
 elasticity/build/*
 !elasticity/build/CMakeLists.txt
 elasticity/fields
+elasticity/Beam
 
 laplace/build/*
 laplace/fields
