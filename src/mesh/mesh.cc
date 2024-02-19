@@ -82,7 +82,8 @@ namespace sfem::mesh
     void Mesh::Info() const
     {
         std::string message = "Mesh Info\n";
-        message += "*Number of Nodes: " + std::to_string(GetNumNodes()) + "\n";
+        message += "*Number of Owned Nodes: " + std::to_string(GetNumNodesOwned()) + "\n";
+        message += "*Number of Ghost Nodes: " + std::to_string(GetNumNodesGhost()) + "\n";
         message += "*Number of Cells: " + std::to_string(GetNumCells()) + "\n";
         message += "*Number of Regions: " + std::to_string(GetNumRegions()) + "\n";
         message += "*Regions: \n";
