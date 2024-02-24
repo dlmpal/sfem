@@ -31,7 +31,6 @@ namespace sfem::geo
     //=============================================================================
     Vec3 Line::FaceTangent(int f_idx, const Float xpts[]) const
     {
-
         switch (f_idx)
         {
         case 0:

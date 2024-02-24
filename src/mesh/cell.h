@@ -50,7 +50,7 @@ namespace sfem::mesh
         }
     }
 
-    /// @brief POD t
+    /// @brief POD
     struct Cell
     {
         // Default constructor
