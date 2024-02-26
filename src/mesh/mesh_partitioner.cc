@@ -223,7 +223,7 @@ namespace sfem::mesh
 #ifdef SFEM_USE_METIS
             partitioner = new METISPartitioner(mesh, n_parts);
 #else
-            Logger::GetInstance().Error("FEMXX was not compiled with METIS. Add SFEM_USE_METIS=ON and re-compile the library.\n", __FILE__, __LINE__);
+            Logger::GetInstance().Error("SFEM was not compiled with METIS. Add SFEM_USE_METIS=ON and re-compile the library.\n", __FILE__, __LINE__);
 #endif // SFEM_USE_METIS
         }
 
